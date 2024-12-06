@@ -1,6 +1,7 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
 import instance from '../Services/Axios'
+import Sidebar from '../Common/component/Sidebar ';
 
 export default function Home() {
 
@@ -11,13 +12,7 @@ export default function Home() {
   return (
     <div>
         <Box>
-            <Typography>
-                Home page
-            </Typography>
-
-            <Button onClick={logout}>
-                Log out
-            </Button>
+           <Sidebar/>
         </Box>
       
     </div>
