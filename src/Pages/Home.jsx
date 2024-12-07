@@ -1,20 +1,25 @@
 import React from 'react'
 import { Box, Button, Typography } from '@mui/material'
-import instance from '../Services/Axios'
-import Sidebar from '../Common/component/Sidebar ';
+import AddCourseForm from '../Common/component/AddCourseForm'
 
 export default function Home() {
 
-    const logout =()=>{
-        localStorage.removeItem('education');
-    }
+    
 
-  return (
-    <div>
-        <Box>
-           <Sidebar/>
-        </Box>
-      
-    </div>
-  )
+    return (
+        <div>
+
+            <Box sx={{marginLeft:5}}>
+                <Typography>
+                    Home Page
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Porro et labore reiciendis accusamus facilis maiores, ab eius rerum tenetur animi eveniet accusantium vitae dolore minus nisi ipsa iste nihil totam.
+                </Typography>
+            </Box>
+
+            <Box>
+                <AddCourseForm/>
+            </Box>
+
+        </div>
+    )
 }
