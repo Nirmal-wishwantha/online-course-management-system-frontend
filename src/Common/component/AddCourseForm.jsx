@@ -6,6 +6,7 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Box,
 } from "@mui/material";
 import instance from "../../Services/Axios";
 
@@ -13,7 +14,6 @@ export default function AddCourseForm() {
   const [open, setOpen] = useState(false);
   const [tital, setTital] = useState("");
   const [description, setDescription] = useState("");
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleClickOpen = () => {
@@ -22,7 +22,6 @@ export default function AddCourseForm() {
 
   const handleClose = () => {
     setOpen(false);
-    setError(""); 
     resetForm();
   };
 
@@ -37,7 +36,6 @@ export default function AddCourseForm() {
       return;
     }
 
-    setLoading(true);
     const userId = localStorage.getItem("educationID");
     const data = {
       title: tital,
@@ -49,70 +47,81 @@ export default function AddCourseForm() {
       .post("/course", data)
       .then((res) => {
         console.log(res);
-        setLoading(false);
         handleClose();
       })
       .catch((err) => {
         console.error(err);
         setError("Failed to add course. Please try again.");
-        setLoading(false);
+
       });
   };
 
   return (
-    <React.Fragment>
-      <Button variant="outlined" onClick={handleClickOpen}>
-        Add New Course
-      </Button>
+    <Box sx={{ margin: 3, padding: 2, boxShadow: 5, borderRadius: 2 ,backgroundColor:'#00b3b3'}}>
 
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle sx={{ textAlign: "center" }}>
-          Add Your Course Details
-        </DialogTitle>
 
-        <DialogContent>
-          {error && (
-            <p style={{ color: "red", fontSize: "0.9rem", marginBottom: "1rem" }}>
-              {error}
-            </p>
-          )}
+      <React.Fragment >
 
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            label="Title"
-            fullWidth
-            variant="standard"
-            value={tital}
-            onChange={(e) => setTital(e.target.value)}
-          />
-
-          <TextField
-            required
-            margin="dense"
-            label="Description"
-            fullWidth
-            variant="standard"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </DialogContent>
-
-        <DialogActions>
-          <Button onClick={handleClose} sx={{ color: "red" }}>
-            Cancel
-          </Button>
-
-          <Button
-            onClick={addNewCourse}
-            disabled={loading}
-            sx={{ color: loading ? "gray" : "blue" }}
+        <Box sx={{ justifyContent: 'center', display: 'flex' }}>
+          <Button variant="outlined" onClick={handleClickOpen}
+          sx={{
+            backgroundColor:'#e6f7ff',
+            "&:hover": { backgroundColor: "#007acc", color: "white" }
+          }}
           >
-            {loading ? "Adding..." : "Add"}
+            Add New Course
           </Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+        </Box>
+
+
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle sx={{ textAlign: "center" }}>
+            Add Your Course Details
+          </DialogTitle>
+
+          <DialogContent>
+            {error && (
+              <p style={{ color: "red", fontSize: "0.9rem", marginBottom: "1rem" }}>
+                {error}
+              </p>
+            )}
+
+            <TextField
+              autoFocus
+              required
+              margin="dense"
+              label="Title"
+              fullWidth
+              variant="standard"
+              value={tital}
+              onChange={(e) => setTital(e.target.value)}
+            />
+
+            <TextField
+              required
+              margin="dense"
+              label="Description"
+              fullWidth
+              variant="standard"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </DialogContent>
+
+          <DialogActions>
+            <Button onClick={handleClose} sx={{ color: "red" }}>
+              Cancel
+            </Button>
+
+            <Button
+              onClick={addNewCourse}
+
+            >
+              Add
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
+    </Box>
   );
 }

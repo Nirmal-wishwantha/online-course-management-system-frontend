@@ -48,7 +48,9 @@ function Main() {
 
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar /> */}
+
+      <Home/>
     </div>
   )
 
