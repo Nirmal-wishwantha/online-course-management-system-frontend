@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography } from '@mui/material';
 import Lesson from '../Common/component/Lesson';
-import AddLessonForm from '../Common/component/AddLessonForm';
 import AddCourseForm from '../Common/component/AddCourseForm'
 import instance from '../Services/Axios';
 import { Toast } from '../Common/Funtion';
+import CourseList from '../Common/component/CourseList';
 
 
 
@@ -70,6 +70,10 @@ export default function Home() {
                     <AddCourseForm />
                 </Box>
 
+                <Box>
+                    <CourseList/>
+                </Box>
+
 
                 <Box>
 
@@ -81,6 +85,7 @@ export default function Home() {
                                 topic={val.title}
                                 description={val.description}
                                 onClickDetete={()=>detleteCours(val.id)}
+                                // deteteLesson={()=>lessonDelete(val.id)}
                             />
 
                         ))

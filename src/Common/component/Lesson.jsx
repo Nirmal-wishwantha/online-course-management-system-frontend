@@ -10,7 +10,7 @@ import {
     MenuItem,
 } from "@mui/material";
 
-export default function Lesson({ no, topic, description, onClickDetete }) {
+export default function Lesson({ no, topic, description, onClickDetete ,deteteLesson}) {
     const [lessons, setLessons] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newLessonTopic, setNewLessonTopic] = useState("");
@@ -60,11 +60,11 @@ export default function Lesson({ no, topic, description, onClickDetete }) {
     };
 
     return (
-        <Box sx={{ p: 4, maxWidth: 800, mx: "auto" }}>
+        <Box sx={{ p: 4, maxWidth: '90%', mx: "auto" }}>
 
             {/* Course Details */}
 
-            <Box sx={{backgroundColor:'#99d6ff',padding:2,borderRadius:2}}>
+            <Box sx={{ backgroundColor: '#99d6ff', padding: 2, borderRadius: 2 }}>
                 <Box sx={{ boxShadow: 3, borderRadius: 2, p: 3, backgroundColor: "#f5f5f5" }}>
                     <Typography
                         variant="h6"
@@ -82,7 +82,7 @@ export default function Lesson({ no, topic, description, onClickDetete }) {
 
                 {/* Lessons Section */}
                 <Box sx={{ mt: 4 }}>
-                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center" ,fontWeight:700}}>
+                    <Typography variant="h5" sx={{ mb: 2, textAlign: "center", fontWeight: 700 }}>
                         Your Lessons
                     </Typography>
                     <Button variant="contained" onClick={handleOpenModal} sx={{ mb: 2 }}>
@@ -100,11 +100,13 @@ export default function Lesson({ no, topic, description, onClickDetete }) {
                                     borderRadius: 2,
                                     boxShadow: 2,
                                     backgroundColor: "#f1f8e9",
+                                    width:'70%'
                                 }}
                             >
                                 <Typography variant="h6" sx={{ fontWeight: 500 }}>
                                     Lesson {lesson.id}: {lesson.topic}
                                 </Typography>
+                                
                                 <Button
                                     variant="outlined"
                                     onClick={(e) => handleOpenDropdown(e, lesson.resources)}
@@ -116,6 +118,19 @@ export default function Lesson({ no, topic, description, onClickDetete }) {
                                 >
                                     View Resources
                                 </Button>
+
+                                <Box sx={{ textAlign: "right"}}>
+                                    <Button
+                                        variant="contained"
+                                        color="error"
+                                        onClick={deteteLesson}
+                                        sx={{
+                                            "&:hover": { backgroundColor: "#d32f2f" },
+                                        }}
+                                    >
+                                        Delete Lesson
+                                    </Button>
+                                </Box>
                             </Box>
                         ))
                     ) : (
