@@ -30,6 +30,7 @@ export default function Login() {
             instance.post('/user/login', data)
                 .then((res) => {
                     localStorage.setItem('education', res.data.token)
+                    localStorage.setItem('educationID',res.data.id);
 
                     Toast.fire({
                         icon: "success",

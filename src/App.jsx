@@ -4,6 +4,7 @@ import { Route, Routes, Navigate } from 'react-router-dom'
 import Login from './Pages/Login'
 import Register from './Pages/Register'
 import Home from './Pages/Home'
+import Sidebar from './Common/component/Sidebar '
 
 function App() {
 
@@ -43,15 +44,14 @@ export default App
 
 
 
-
-
-
 function Main() {
 
-  return(
+  return (
     <div>
-    <Home />
-  </div>
+      {/* <Sidebar /> */}
+
+      <Home/>
+    </div>
   )
- 
+
 }

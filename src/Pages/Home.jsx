@@ -1,25 +1,100 @@
-import React from 'react'
-import { Box, Button, Typography } from '@mui/material'
-import instance from '../Services/Axios'
+import React, { useState, useEffect } from 'react';
+import { Box, Typography } from '@mui/material';
+import Lesson from '../Common/component/Lesson';
+import AddCourseForm from '../Common/component/AddCourseForm'
+import instance from '../Services/Axios';
+import { Toast } from '../Common/Funtion';
+import CourseList from '../Common/component/CourseList';
+
+
 
 export default function Home() {
 
-    const logout =()=>{
-        localStorage.removeItem('education');
+    useEffect(() => {
+        getCourse();
+    }, [])
+
+    const [course, setCourse] = useState([]);
+
+    const getCourse = () => {
+        const id = localStorage.getItem('educationID')
+
+        instance.get(`/course/instructor/${id}`)
+            .then((res) => {
+                setCourse(res.data);
+                console.log(res);
+
+            })
+            .catch((err) => {
+                console.log(err);
+
+            })
     }
 
-  return (
-    <div>
-        <Box>
-            <Typography>
-                Home page
-            </Typography>
 
-            <Button onClick={logout}>
-                Log out
-            </Button>
-        </Box>
-      
-    </div>
-  )
+    // delete cours
+
+    const detleteCours = (id) => {
+        instance.delete(`/course/${id}`)
+        .then((res)=>{
+            console.log(res);
+
+            Toast.fire({
+                icon: "success",
+                title: "Delete Course Successful..!",
+                background: "#d4edda",
+                color: "#155724"
+            });
+
+            setTimeout(() => {
+                getCourse();
+            }, 1000);
+           
+        })
+        .catch((err)=>{
+            console.log(err);
+            Toast.fire({
+                icon: "error",
+                title: "Delete Faild..!",
+                background: "#f8d7da",
+                color: "#721c24"
+            });
+        })
+    }
+
+    return (
+        <div>
+
+            <Box>
+                <Box>
+                    <AddCourseForm />
+                </Box>
+
+                <Box>
+                    <CourseList/>
+                </Box>
+
+
+                <Box>
+
+                    {
+                        course.map((val, index) => (
+                            <Lesson
+                                key={index}
+                                no={index + 1}
+                                topic={val.title}
+                                description={val.description}
+                                onClickDetete={()=>detleteCours(val.id)}
+                                // deteteLesson={()=>lessonDelete(val.id)}
+                            />
+
+                        ))
+                    }
+                </Box>
+
+            </Box>
+
+
+        </div >
+    );
 }
